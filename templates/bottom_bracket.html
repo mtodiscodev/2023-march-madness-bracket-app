@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+  <title>March Madness Predictions</title>
+</head>
+
+<link href="static/styles.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/jpg" href="static/bball.ico"/>
+
+<div class="navbar">
+  <a href="/top-bracket">Top Bracket</a>
+  <a style=background-color:#005eb8 href="/bottom-bracket">Bottom Bracket</a>
+  <a href="/final-four">Final Four</a>
+  <a class="reset" href="/">Reset Picks</a>
+</div>
+
+<form action='/bottom-bracket' method='post' class="select">
+<main id="tournament">
+    <ul class="round round-1">
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value='Baylor||east_1||1'>1. Baylor <span>
+        {{ preds_dict['Baylor']['Norfolk St'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top top-border" value='Norfolk St||east_1||16'>16. Norfolk St <span>
+        {{ preds_dict['Norfolk St']['Baylor'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value='N Carolina||east_2||8'>8. N Carolina <span>
+        {{ preds_dict['N Carolina']['Marquette'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value='Marquette||east_2||9'>9. Marquette <span>
+        {{ preds_dict['Marquette']['N Carolina'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="St Mary's||east_3||5">5. St Mary's <span>
+        {{ preds_dict['St Mary\'s']['Indiana'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Indiana||east_3||12">12. Indiana <span>
+        {{ preds_dict['Indiana']['St Mary\'s'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="UCLA||east_4||4">4. UCLA <span>
+        {{ preds_dict['UCLA']['Akron'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Akron||east_4||13">13. Akron <span>
+        {{ preds_dict['Akron']['UCLA'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Texas||east_5||6">6. Texas <span>
+        {{ preds_dict['Texas']['Virginia Tech'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Virginia Tech||east_5||11">11. Virginia Tech <span>
+        {{ preds_dict['Virginia Tech']['Texas'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Purdue||east_6||3">3. Purdue <span>
+        {{ preds_dict['Purdue']['Yale'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Yale||east_6||14">14. Yale <span>
+        {{ preds_dict['Yale']['Purdue'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Murray St||east_7||7">7. Murray St <span>
+        {{ preds_dict['Murray St']['San Fran'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="San Fran||east_7||10">10. San Fran <span>
+        {{ preds_dict['San Fran']['Murray St'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Kentucky||east_8||2">2. Kentucky <span>
+        {{ preds_dict['Kentucky']['St Peter\'s'] }}
+      </span></button>
+      <li class="game game-spacer">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="St Peter's||east_8||15">15. St Peter's <span>
+        {{ preds_dict['St Peter\'s']['Kentucky'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+    </ul>
+    <ul class="round round-2">
+      <li class="spacer">&nbsp;</li>
+      {% for n in range(1,9) %}
+        {% if n is divisibleby(2) %}
+          {% if 'east_' + n|string in game_ids %}
+            <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['east_' + n|string]}}||east_{{ game_map[n] }}||{{seed_dict[winner_dict['east_' + n|string]]}}">{{seed_dict[winner_dict['east_' + n|string]]}}. {{winner_dict['east_' + n|string]}} <span> 
+              {{ preds_dict[winner_dict['east_' + n|string]].get(winner_dict['east_' + (n-1)|string], '') }}
+            </span></button>
+            <li class="spacer">&nbsp;</li>
+          {% else %}
+
+          <li class="game game-bottom"><span>&#8203;</span></li>
+          <li class="spacer">&nbsp;</li>
+          {% endif %}
+
+      {% else %}
+        {% if 'east_' + n|string in game_ids %}
+          <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['east_' + n|string]}}||east_{{ game_map[n] }}||{{seed_dict[winner_dict['east_' + n|string]]}}">{{seed_dict[winner_dict['east_' + n|string]]}}. {{winner_dict['east_' + n|string]}} <span>
+          {{ preds_dict[winner_dict['east_' + n|string]].get(winner_dict['east_' + (n+1)|string], '') }}</span></button>
+          <li class="game game-spacer">&nbsp;</li>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+        <li class="game game-spacer">&nbsp;</li>
+      {% endif %}
+        {% endif %}
+      {% endfor %}
+
+    </ul>
+    <ul class="round round-3">
+      <li class="spacer">&nbsp;</li>
+      
+      {% for n in range(9,13) %}
+        {% if n is divisibleby(2) %}
+          {% if 'east_' + n|string in game_ids %}
+            <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['east_' + n|string]}}||east_{{ game_map[n] }}||{{seed_dict[winner_dict['east_' + n|string]]}}">{{seed_dict[winner_dict['east_' + n|string]]}}. {{winner_dict['east_' + n|string]}} <span>
+              {{ preds_dict[winner_dict['east_' + n|string]].get(winner_dict['east_' + (n-1)|string], '') }}
+            </span></button>
+            <li class="spacer">&nbsp;</li>
+          {% else %}
+
+          <li class="game game-bottom"><span>&#8203;</span></li>
+          <li class="spacer">&nbsp;</li>
+          {% endif %}
+
+      {% else %}
+        {% if 'east_' + n|string in game_ids %}
+          <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['east_' + n|string]}}||east_{{ game_map[n] }}||{{seed_dict[winner_dict['east_' + n|string]]}}">{{seed_dict[winner_dict['east_' + n|string]]}}. {{winner_dict['east_' + n|string]}} <span>
+            {{ preds_dict[winner_dict['east_' + n|string]].get(winner_dict['east_' + (n+1)|string], '') }}
+          </span></button>
+          <li class="game game-spacer">&nbsp;</li>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+        <li class="game game-spacer">&nbsp;</li>
+      {% endif %}
+        {% endif %}
+      {% endfor %}
+
+    </ul>
+    <ul class="round round-4">
+      <li class="spacer">&nbsp;</li>
+      
+      {% for n in range(13,15) %}
+        {% if n is divisibleby(2) %}
+          {% if 'east_' + n|string in game_ids %}
+            <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['east_' + n|string]}}||east_{{ game_map[n] }}||{{seed_dict[winner_dict['east_' + n|string]]}}">{{seed_dict[winner_dict['east_' + n|string]]}}. {{winner_dict['east_' + n|string]}} <span>{{ preds_dict[winner_dict['east_' + n|string]].get(winner_dict['east_' + (n-1)|string], '') }}</span></button>
+            <li class="spacer">&nbsp;</li>
+          {% else %}
+
+          <li class="game game-bottom"><span>&#8203;</span></li>
+          <li class="spacer">&nbsp;</li>
+          {% endif %}
+
+      {% else %}
+        {% if 'east_' + n|string in game_ids %}
+          <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['east_' + n|string]}}||east_{{ game_map[n] }}||{{seed_dict[winner_dict['east_' + n|string]]}}">{{seed_dict[winner_dict['east_' + n|string]]}}. {{winner_dict['east_' + n|string]}} <span>
+            {{ preds_dict[winner_dict['east_' + n|string]].get(winner_dict['east_' + (n+1)|string], '') }}
+          </span></button>
+          <li class="game game-spacer">&nbsp;</li>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+        <li class="game game-spacer">&nbsp;</li>
+      {% endif %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <!-- END OF LEFT BRACKET -->
+    <ul class="round round-5">
+      <li class="spacer">&nbsp;</li>
+
+      {% if 'east_15' in game_ids %}
+        <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['east_15']}}||east_15||{{seed_dict[winner_dict['east_15']]}}">{{seed_dict[winner_dict['east_15']]}}. {{winner_dict['east_15']}}</button>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+      {% endif %}
+
+      <li class="spacer">&nbsp;</li>
+    </ul>
+
+    <ul>
+      <!-- <div class="center-image">
+        <br>
+        <br>
+        <br>
+        <br>
+        <img src="static/mm_logo.png" alt="March Madness Logo" width="250" height="120">
+      </div> -->
+      
+    </ul>
+
+    <!-- START OF RIGHT BRACKET -->
+    <ul class="round round-5">
+      <li class="spacer">&nbsp;</li>
+      {% if 'mw_15' in game_ids %}
+        <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['mw_15']}}||mw_15||{{seed_dict[winner_dict['mw_15']]}}">{{seed_dict[winner_dict['mw_15']]}}. {{winner_dict['mw_15']}}</button>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+      {% endif %}
+
+      <li class="spacer">&nbsp;</li>
+    </ul>
+
+    <ul class="round round-4">
+      <li class="spacer">&nbsp;</li>
+      
+      {% for n in range(13,15) %}
+        {% if n is divisibleby(2) %}
+          {% if 'mw_' + n|string in game_ids %}
+            <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['mw_' + n|string]}}||mw_{{ game_map[n] }}||{{seed_dict[winner_dict['mw_' + n|string]]}}">{{seed_dict[winner_dict['mw_' + n|string]]}}. {{winner_dict['mw_' + n|string]}} <span>
+              {{ preds_dict[winner_dict['mw_' + n|string]].get(winner_dict['mw_' + (n-1)|string], '') }}
+            </span></button>
+            <li class="spacer">&nbsp;</li>
+          {% else %}
+
+          <li class="game game-bottom"><span>&#8203;</span></li>
+          <li class="spacer">&nbsp;</li>
+          {% endif %}
+
+      {% else %}
+        {% if 'mw_' + n|string in game_ids %}
+          <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['mw_' + n|string]}}||mw_{{ game_map[n] }}||{{seed_dict[winner_dict['mw_' + n|string]]}}">{{seed_dict[winner_dict['mw_' + n|string]]}}. {{winner_dict['mw_' + n|string]}} <span>
+            {{ preds_dict[winner_dict['mw_' + n|string]].get(winner_dict['mw_' + (n+1)|string], '') }}
+          </span></button>
+          <li class="game game-spacer-left">&nbsp;</li>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+        <li class="game game-spacer-left">&nbsp;</li>
+      {% endif %}
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <ul class="round round-3">
+      <li class="spacer">&nbsp;</li>
+      
+      {% for n in range(9,13) %}
+        {% if n is divisibleby(2) %}
+          {% if 'mw_' + n|string in game_ids %}
+            <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['mw_' + n|string]}}||mw_{{ game_map[n] }}||{{seed_dict[winner_dict['mw_' + n|string]]}}">{{seed_dict[winner_dict['mw_' + n|string]]}}. {{winner_dict['mw_' + n|string]}} <span>
+              {{ preds_dict[winner_dict['mw_' + n|string]].get(winner_dict['mw_' + (n-1)|string], '') }}
+            </span></button>
+            <li class="spacer">&nbsp;</li>
+          {% else %}
+
+          <li class="game game-bottom"><span>&#8203;</span></li>
+          <li class="spacer">&nbsp;</li>
+          {% endif %}
+
+      {% else %}
+        {% if 'mw_' + n|string in game_ids %}
+          <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['mw_' + n|string]}}||mw_{{ game_map[n] }}||{{seed_dict[winner_dict['mw_' + n|string]]}}">{{seed_dict[winner_dict['mw_' + n|string]]}}. {{winner_dict['mw_' + n|string]}} <span>
+            {{ preds_dict[winner_dict['mw_' + n|string]].get(winner_dict['mw_' + (n+1)|string], '') }}
+          </span></button>
+          <li class="game game-spacer-left">&nbsp;</li>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+        <li class="game game-spacer-left">&nbsp;</li>
+      {% endif %}
+        {% endif %}
+      {% endfor %}
+
+    </ul>
+    <ul class="round round-2">
+      <li class="spacer">&nbsp;</li>
+      {% for n in range(1,9) %}
+        {% if n is divisibleby(2) %}
+          {% if 'mw_' + n|string in game_ids %}
+            <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['mw_' + n|string]}}||mw_{{ game_map[n] }}||{{seed_dict[winner_dict['mw_' + n|string]]}}">{{seed_dict[winner_dict['mw_' + n|string]]}}. {{winner_dict['mw_' + n|string]}} <span>
+              {{ preds_dict[winner_dict['mw_' + n|string]].get(winner_dict['mw_' + (n-1)|string], '') }}
+            </span></button>
+            <li class="spacer">&nbsp;</li>
+          {% else %}
+
+          <li class="game game-bottom"><span>&#8203;</span></li>
+          <li class="spacer">&nbsp;</li>
+          {% endif %}
+
+      {% else %}
+        {% if 'mw_' + n|string in game_ids %}
+          <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['mw_' + n|string]}}||mw_{{ game_map[n] }}||{{seed_dict[winner_dict['mw_' + n|string]]}}">{{seed_dict[winner_dict['mw_' + n|string]]}}. {{winner_dict['mw_' + n|string]}} <span>
+            {{ preds_dict[winner_dict['mw_' + n|string]].get(winner_dict['mw_' + (n+1)|string], '') }}
+          </span></button>
+          <li class="game game-spacer-left">&nbsp;</li>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+        <li class="game game-spacer-left">&nbsp;</li>
+      {% endif %}
+        {% endif %}
+      {% endfor %}
+
+    </ul>
+    <ul class="round round-1">
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value='Kansas||mw_1||1'>1. Kansas <span>
+        {{ preds_dict['Kansas']['TX Southern'] }}
+      </span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top top-border" value='TX Southern||mw_1||16'>16. TX Southern <span>
+      {{ preds_dict['TX Southern']['Kansas'] }}</span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value='San Diego St||mw_2||8'>8. San Diego St <span>
+        {{ preds_dict['San Diego St']['Creighton'] }}
+      </span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value='Creighton||mw_2||9'>9. Creighton <span>
+        {{ preds_dict['Creighton']['San Diego St'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Iowa||mw_3||5">5. Iowa <span>
+        {{ preds_dict['Iowa']['Richmond'] }}
+      </span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Richmond||mw_3||12">12. Richmond <span>
+        {{ preds_dict['Richmond']['Iowa'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Providence||mw_4||4">4. Providence <span>
+        {{ preds_dict['Providence']['S Dakota St'] }}
+      </span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="S Dakota St||mw_4||13">13. S Dakota St <span>
+        {{ preds_dict['S Dakota St']['Providence'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="LSU||mw_5||6">6. LSU <span>
+        {{ preds_dict['LSU']['Iowa St'] }}
+      </span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Iowa St||mw_5||11">11. Iowa St <span>
+        {{ preds_dict['Iowa St']['LSU'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Wisconsin||mw_6||3">3. Wisconsin <span>
+        {{ preds_dict['Wisconsin']['Colgate'] }}
+      </span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Colgate||mw_6||14">14. Colgate <span>
+        {{ preds_dict['Colgate']['Wisconsin'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="USC||mw_7||7">7. USC <span>
+      {{ preds_dict['USC']['Miami FL'] }}</span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Miami FL||mw_7||10">10. Miami FL <span>
+      {{ preds_dict['Miami FL']['USC'] }}</span></button>
+
+      <li class="spacer">&nbsp;</li>
+      
+      <button name='matchup' class="game game-top bottom-border" value="Auburn||mw_8||2">2. Auburn <span>
+        {{ preds_dict['Auburn']['Jville St'] }}
+      </span></button>
+      <li class="game game-spacer-left">&nbsp;</li>
+      <button name='matchup' class="game game-bottom top-border" value="Jville St||mw_8||15">15. Jville St <span>
+        {{ preds_dict['Jville St']['Auburn'] }}
+      </span></button>
+
+      <li class="spacer">&nbsp;</li>
+    </ul>
+</main>
+</form>
+</html> 

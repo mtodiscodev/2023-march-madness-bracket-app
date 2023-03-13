@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+<head>
+  <title>March Madness Predictions</title>
+</head>
+
+<link href="static/styles.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/jpg" href="static/bball.ico"/>
+
+<div class="navbar">
+  <a href="/top-bracket">Top Bracket</a>
+  <a href="/bottom-bracket">Bottom Bracket</a>
+  <a style=background-color:#005eb8 href="/final-four">Final Four</a>
+  <a class="reset" href="/">Reset Picks</a>
+</div>
+
+<br>
+<br>
+
+<form action='/final-four' method='post' class="select">
+<main class='ff' id="tournament">
+  <ul class="round round-4">
+      <li class="spacer">&nbsp;</li>
+
+      {% if 'west_15' in game_ids %}
+        <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['west_15']}}||ff_we_16||{{seed_dict[winner_dict['west_15']]}}">{{seed_dict[winner_dict['west_15']]}}. {{winner_dict['west_15']}} <span>
+          {{ preds_dict[winner_dict['west_15']].get(winner_dict['east_15'], '') }}
+        </span></button>
+        <li class="spacer">&nbsp;</li>
+      {% else %}
+        <li class="game game-bottom"><span>&#8203;</span></li>
+        <li class="spacer">&nbsp;</li>
+      {% endif %}
+
+      <li class="game ff-game-spacer">&nbsp;</li>
+
+      {% if 'east_15' in game_ids %}
+        <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['east_15']}}||ff_we_16||{{seed_dict[winner_dict['east_15']]}}">{{seed_dict[winner_dict['east_15']]}}. {{winner_dict['east_15']}} <span>
+          {{ preds_dict[winner_dict['east_15']].get(winner_dict['west_15'], '') }}
+        </span></button>
+        <li class="spacer">&nbsp;</li>
+      {% else %}
+        <li class="game game-bottom"><span>&#8203;</span></li>
+        <li class="spacer">&nbsp;</li>
+      {% endif %}
+    </ul>
+
+    <ul class="round round-5">
+      <li class="spacer">&nbsp;</li>
+      {% if 'ff_we_16' in game_ids %}
+        <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['ff_we_16']}}||final||{{seed_dict[winner_dict['ff_we_16']]}}">{{seed_dict[winner_dict['ff_we_16']]}}. {{winner_dict['ff_we_16']}} <span>
+            {{ preds_dict[winner_dict['ff_we_16']].get(winner_dict['ff_smw_16'], '') }}
+        </span></button>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+      {% endif %}
+
+      <li class="spacer">&nbsp;</li>
+    </ul>
+
+    <ul>
+      <img src="/static/final-four-logo.jpeg">
+      <center>
+        <h1>Champion</h1>
+      <br>
+      {% if 'final' in game_ids %}
+        <h2 style="font-size:40px" name='matchup' class="game game-top bottom-border">{{winner_dict['final']}}</h2>
+      {% else %}
+        <h2 style="font-size:40px" name='matchup' class="game game-top bottom-border"> </h2>
+      {% endif %}
+      </center>
+    </ul>
+
+    <!-- START OF RIGHT BRACKET -->
+
+    <ul class="round round-5">
+      <li class="spacer">&nbsp;</li>
+      {% if 'ff_smw_16' in game_ids %}
+        <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['ff_smw_16']}}||final||{{seed_dict[winner_dict['ff_smw_16']]}}">{{seed_dict[winner_dict['ff_smw_16']]}}. {{winner_dict['ff_smw_16']}} <span>
+            {{ preds_dict[winner_dict['ff_smw_16']].get(winner_dict['ff_we_16'], '') }}
+        </span></button>
+      {% else %}
+        <li class="game game-top"><span>&#8203;</span></li>
+      {% endif %}
+
+      <li class="spacer">&nbsp;</li>
+    </ul>
+
+    <ul class="round round-4">
+      <li class="spacer">&nbsp;</li>
+
+      {% if 'south_15' in game_ids %}
+        <button name='matchup' class="game game-top bottom-border" value="{{winner_dict['south_15']}}||ff_smw_16||{{seed_dict[winner_dict['south_15']]}}">{{seed_dict[winner_dict['south_15']]}}. {{winner_dict['south_15']}} <span>
+          {{ preds_dict[winner_dict['south_15']].get(winner_dict['mw_15'], '') }}
+        </span></button>
+        <li class="spacer">&nbsp;</li>
+      {% else %}
+        <li class="game game-bottom"><span>&#8203;</span></li>
+        <li class="spacer">&nbsp;</li>
+      {% endif %}
+
+      <li class="game ff-game-spacer-left">&nbsp;</li>
+
+      {% if 'mw_15' in game_ids %}
+        <button name='matchup' class="game game-bottom top-border" value="{{winner_dict['mw_15']}}||ff_smw_16||{{seed_dict[winner_dict['mw_15']]}}">{{seed_dict[winner_dict['mw_15']]}}. {{winner_dict['mw_15']}} <span>
+          {{ preds_dict[winner_dict['mw_15']].get(winner_dict['south_15'], '') }}
+        </span></button>
+        <li class="spacer">&nbsp;</li>
+      {% else %}
+        <li class="game game-bottom"><span>&#8203;</span></li>
+        <li class="spacer">&nbsp;</li>
+      {% endif %}
+    </ul>
+</main>
+</html> 
