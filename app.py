@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pandas as pd
-from pred_dict_2022 import preds as preds_dict
+from pred_dict_2023 import preds as preds_dict
 from uuid import uuid4
 
 app = Flask(__name__)
