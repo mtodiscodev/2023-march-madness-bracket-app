@@ -9,7 +9,7 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///winners.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nlavwjdwgcxeyg:0d2d99ddbae0886aec120f4239222d15aee55f2b2cf48f4a19d663c443fe6c49@ec2-54-158-26-89.compute-1.amazonaws.com:5432/d50p3glj8p4gtu'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://cbznbzdwmiytrq:900b3078c5e923a597e16924b47a0cc031b7ec91a9d8fc5fdc9d27ad20c084f3@ec2-3-219-63-251.compute-1.amazonaws.com:5432/d8j5j8obr43fn'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://diomqnthrtotfn:948703e978e213f7f8846e70f70863e13690f412b7778d67f434ae9aefa16fdb@ec2-44-213-228-107.compute-1.amazonaws.com:5432/d3kqv1ci7pjudp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://diomqnthrtotfn:948703e978e213f7f8846e70f70863e13690f412b7778d67f434ae9aefa16fdb@ec2-44-213-228-107.compute-1.amazonaws.com:5432/d3kqv1ci7pjudp'
 app.secret_key = '_wqe8nFuwV8sP*ijEn46kJVb'
 
 db = SQLAlchemy(app)
